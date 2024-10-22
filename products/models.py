@@ -36,11 +36,14 @@ class OrderItem(models.Model):
 
 class Cart(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart_user')
+    created_date = models.DateField(auto_now_add=True)
+    updated_date = models.DateField(auto_now=True)
 
 class CartItem(models.Model):
     cart_id =models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_item')
     product_id = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='product_item')
     quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=9, decimal_places=2)
 
 class Payment(models.Model):
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_payment')
